@@ -1,0 +1,96 @@
+<span ><div style ='color: #311B92;  padding:5px;'><h3 style=" text-align: center; font-family : cursive;">{{alertMsg}}</h3></div></span>
+<div class="row">
+    <div class="col-lg-9"></div>
+    <div class="col-lg-3">
+        <div class="d-flex justify-content-center px-5">
+            <div class="search"> 
+                <input type="text" class="search-input" placeholder="Search" [(ngModel)]="query" id="listSearch">&nbsp; 
+                <a class="search-icon" (onclick)='SearchClik()'> <i class="fa fa-search"></i> </a> 
+            </div>
+        </div>
+    </div>
+</div>
+  
+<div class="container-fluid p-0 m-0 g-0 mt-3">
+    <div class="row p-0 m-0 g-0">
+      <div class="col-lg-9 ">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid"  >
+          <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let course of Courses | searchFilter: query | category : querycategory;  let i = index;">
+            <div *ngIf="!((i%2)==0)" class="card text-center" style="width: 18rem; border: 3px solid #AD1457 !important; "> 
+              <div class="card-img-wrapper">
+                <img class="card-img-top" src="assets/images/{{course.course_image}}" alt="Card image cap">
+                </div>
+                <div class="card-body ">
+                  <h3 class="card-title text-center display-1" style="color: #AD1457;"><b>{{course.course_title}}</b></h3>
+                  <p class="card-text text-left">{{course.course_short_desc}}<a type="button" (click)="getCourse(course)" class="card-text " style ='text-decoration: none; color: #AD1457'><strong>View Course</strong></a>
+                  </p>
+                  <!-- <a href="#" class="btn btn-primary btn-purple disabled" role="button" *ngIf='(course.Reg_Status==0)'>Registration Closed</a> -->
+                  <a href="#" class="btn btn-primary btn-purple" role="button" *ngIf='!(course.Reg_Status==0)' data-bs-toggle="modal" data-bs-target="#loginModal">Register Now</a>
+                </div>
+                <div class="card-badge" *ngIf='(course.Reg_Status==1)'><strong>Admissions Open</strong></div>
+                <div class="card-badge" *ngIf='(course.Reg_Status==0)'><strong>Admissions Closed</strong></div>
+            </div>
+            <div *ngIf="((i%2)==0)" class="card text-center" style="width: 18rem; border: 3px solid #1A237E !important; ">              
+              <div class="card-img-wrapper">
+              <img class="card-img-top" src="assets/images/{{course.course_image}}" alt="Card image cap">
+              </div>
+              <div class="card-body ">
+                <h3 class="card-title text-center display-1" ><b style="color: #1A237E;">{{course.course_title}}</b></h3>
+                <p class="card-text text-left">{{course.course_short_desc}}<a type="button" (click)="getCourse(course)" class="card-text " style ='text-decoration: none; color: #1A237E'><strong>View Course</strong></a>
+                </p>
+                <!-- <a href="#" class="btn btn-primary btn-blue disabled" role="button" *ngIf='(course.Reg_Status==0)'>Registration Closed</a> -->
+                <button class="btn  btn-outline-success" type="button" *ngIf='!(course.Reg_Status==0)' (click)="Register(course)" >Register Now</button>
+              </div>
+              <div class="card-badge" *ngIf='(course.Reg_Status==1)'><strong>Admissions Open</strong></div>
+              <div class="card-badge" *ngIf='(course.Reg_Status==0)'><strong>Admissions Closed</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3" >
+        <div class='bg-custom-2'>
+          <h1 class='text-white display-1'>&nbsp;Popular Courses</h1>
+        </div>
+        <!-- <a class="hvr-underline-from-center" href="">Hover Effect 5</a> -->
+        <div *ngFor="let popularCourse of popularCourses ">
+          <table class="table table-image borderless" style ='width:100%;'>
+            <tbody>
+              <tr>
+                <td class="w-25">
+                  <img mat-card-sm-image src = "assets/images/{{popularCourse.course_image}}"  alt = "Learn HTML5">
+                </td>
+                <td><mat-card class="mat-elevation-z0  ">
+                      <a type="button" class="popular_course hover-5" (click)="getCourse(popularCourse)" style='text-decoration: none;'>
+                        <span>{{popularCourse.course_title}}</span></a><br><br>
+                    <span *ngIf ='(popularCourse.Rating>=1)'class = "fa fa-star checked"></span> 
+                    <span *ngIf ='!(popularCourse.Rating>=1)'class = "fa fa-star unchecked"></span>  
+                    <span *ngIf ='(popularCourse.Rating>=2)'class = "fa fa-star checked"></span> 
+                    <span *ngIf ='!(popularCourse.Rating>=2)'class = "fa fa-star unchecked"></span> 
+                    <span *ngIf ='(popularCourse.Rating>=3)'class = "fa fa-star checked"></span> 
+                    <span *ngIf ='!(popularCourse.Rating>=3)'class = "fa fa-star unchecked"></span> 
+                    <span *ngIf ='(popularCourse.Rating>=4)'class = "fa fa-star checked"></span> 
+                    <span *ngIf ='!(popularCourse.Rating>=4)'class = "fa fa-star unchecked"></span> 
+                    <span *ngIf ='(popularCourse.Rating>=5)'class = "fa fa-star checked"></span> 
+                    <span *ngIf ='!(popularCourse.Rating>=5)'class = "fa fa-star unchecked"></span> 
+                  </mat-card>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+        </div>
+        <div class='bg-custom-2'>
+          <h1 class='text-white display-1'>&nbsp;&nbsp;Categories</h1>
+        </div>
+        <ul>
+          <div *ngFor="let cat of categories">
+            <li type ='button' style="color: #1A237E" (mousedown)="querycategory=cat">{{cat}}</li>
+            <!-- <a type="submit" class="btn btn-success btn-lg ms-2" (mousedown)="submitted=true">Submit Form</button> -->
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+ 
