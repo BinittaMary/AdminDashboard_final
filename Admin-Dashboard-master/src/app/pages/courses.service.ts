@@ -83,6 +83,7 @@ export class CoursesService {
       console.log(`${i} ${image[i]}`);
     }
     
+    
     formData.append('course_title', course.course_title); 
     formData.append('course_image', course.course_image); 
     formData.append('course_short_desc', course.course_short_desc); 
@@ -100,6 +101,7 @@ export class CoursesService {
     formData.append('knowledge_partner', course.knowledge_partner); 
     formData.append('sponser_partner', course.sponser_partner); 
     formData.append('active', course.active); 
+    console.log('call insert function');
     return this.http.post('http://localhost:5000/course/Course/insert', formData);
   }
 

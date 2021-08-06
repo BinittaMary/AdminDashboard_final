@@ -123,6 +123,29 @@ export class CoursesComponent implements OnInit {
       this.router.navigate([currentUrl]);
   });
  }
+
+ editAccess(){
+  var retrievedObject = localStorage.getItem('user1');
+  var user1 = JSON.parse(retrievedObject);
+
+  return !user1.edit;
+  
+}
+
+deleteAccess(){
+  var retrievedObject = localStorage.getItem('user1');
+  var user1 = JSON.parse(retrievedObject);
+
+  return !user1.delete;
+}
+
+addAccess(){
+  var retrievedObject = localStorage.getItem('user1');
+  var user1 = JSON.parse(retrievedObject);
+
+  return !user1.add;
+}
+
 }
 
 

@@ -35,6 +35,29 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['../editevent'], { relativeTo: this.route });
   }
 
+  editAccess(){
+    var retrievedObject = localStorage.getItem('user1');
+    var user1 = JSON.parse(retrievedObject);
+  
+    return !user1.edit;
+    
+  }
+
+  deleteAccess(){
+    var retrievedObject = localStorage.getItem('user1');
+    var user1 = JSON.parse(retrievedObject);
+ 
+    return !user1.delete;
+  }
+
+  addAccess(){
+    var retrievedObject = localStorage.getItem('user1');
+    var user1 = JSON.parse(retrievedObject);
+ 
+    return !user1.add;
+  }
+
+
   saveEventIndex(){
     console.log(this.events);
     for(let i= 0; i<this.events.length; i++){

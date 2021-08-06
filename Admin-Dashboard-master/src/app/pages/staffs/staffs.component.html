@@ -6,10 +6,10 @@
                 <a  [hidden]="addAccess()" (click)="addStaff()"class="plus">
                     <ion-icon name="add-outline"></ion-icon>
                 </a>   
-                <a (click)="saveCourseIndex()"class="plus">
+                <a [hidden]="editAccess()" (click)="saveCourseIndex()"class="plus">
                     <ion-icon name="checkmark"></ion-icon>
                 </a>
-                <a (click)="resetCourseIndex()" class="plus">
+                <a [hidden]="editAccess()" (click)="resetCourseIndex()" class="plus">
                     <ion-icon name="close"></ion-icon>
                 </a>           
             </nb-card-header>

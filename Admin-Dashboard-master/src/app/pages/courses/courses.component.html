@@ -2,13 +2,13 @@
     <div class="col-md-12 col-lg-12 col-xxxl-6">
         <nb-card class="list-card">
             <nb-card-header> <h5>Courses</h5> 
-                <a (click)="addCourse()"class="plus">
+                <a [hidden]="addAccess()" (click)="addCourse()"class="plus">
                     <ion-icon name="add-outline"></ion-icon>
                 </a>   
-                <a (click)="saveCourseIndex()"class="plus">
+                <a [hidden]="editAccess()" (click)="saveCourseIndex()"class="plus">
                     <ion-icon name="checkmark"></ion-icon>
                 </a>
-                <a (click)="resetCourseIndex()"class="plus">
+                <a [hidden]="editAccess()"  (click)="resetCourseIndex()"class="plus">
                     <ion-icon name="close"></ion-icon>
                 </a>           
             </nb-card-header>
@@ -41,10 +41,10 @@
                             <a (click)="viewCourse(Course)">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </a>
-                            <a (click)="editCourse(Course)">
+                            <a [hidden]="editAccess()" (click)="editCourse(Course)">
                                 <ion-icon name="create-outline"></ion-icon>
                             </a>
-                            <a (click)="deleteCourse(Course)">
+                            <a [hidden]="deleteAccess()"  (click)="deleteCourse(Course)">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </a>
                         </div>

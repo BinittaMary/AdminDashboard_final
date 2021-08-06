@@ -45,11 +45,12 @@ app.get('/CourseCategory', function (req, res) {
 });
 
 app.post('/Course/insert',function(req,res){
-    var indx;  
     res.header("Access-Control-Allow-Origin","*")
     res.header('Access-Control-Allow-Methods: GET, POST, PATCH,PUT,DELETE,OPTIONS');  
-    console.log(` inside insert ${req.body}`)
-    console.log(__dirname);
+    console.log('came inside insert');
+    var indx;   
+
+    console.log(req.body)
     const destn = path.join(__dirname, '../', '../','../','FrontEnd', 'src', 'assets', 'images');
     console.log(destn);
     var storage =   multer.diskStorage({
@@ -60,8 +61,9 @@ app.post('/Course/insert',function(req,res){
           cb(null, file.originalname);
       }
       });
-    var upload = multer({ storage : storage}).array('file',10);
+    var upload =  multer({ storage : storage}).array('files',10);
     upload(req,res,function(err) {
+        console.log('came inside uploadt');
         if(err) {
             console.log("Error uploading file.");
         }
@@ -92,13 +94,29 @@ app.post('/Course/insert',function(req,res){
                 active                  : req.body.active  
         }       
         console.log(course);
+       
+        console.log('check record exist');
+        Coursedata.findOne({ 'course_title': course.course_title }).select("_id").lean().then(result => {
+            if (result) {
+                console.log('record exist');
+                console.log(result);
+                Coursedata.findByIdAndDelete(result).then(function (data) {
+                    console.log('record deleted')
+                    }).catch(function (error) {
+                        console.log('record fail to delete')
+                });
+            }
+        });
+
         var courseItem = new Coursedata(course);
         courseItem.save().then(function (data) {
           res.send(true)
           }).catch(function (error) {
           res.send(false)
-      });
-        });    
+        });
+
+        });  
+          
     });
   });
 

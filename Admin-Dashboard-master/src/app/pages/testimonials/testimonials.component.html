@@ -5,13 +5,13 @@
         <nb-card class="list-card">
             <nb-card-header>
                 <h5>Testimonials</h5>
-                <a (click)="addTestimonial()" class="plus">
+                <a [hidden]="addAccess()" (click)="addTestimonial()" class="plus">
                     <ion-icon name="add-outline"></ion-icon>
                 </a>
-                <a (click)="saveTestimonialsIndex()" class="plus">
+                <a [hidden]="editAccess()"  (click)="saveTestimonialsIndex()" class="plus">
                     <ion-icon name="checkmark"></ion-icon>
                 </a>
-                <a (click)="resetTestimonialsIndex()" class="plus">
+                <a [hidden]="editAccess()"  (click)="resetTestimonialsIndex()" class="plus">
                     <ion-icon name="close"></ion-icon>
                 </a>
             </nb-card-header>
@@ -36,10 +36,10 @@
                             <a (click)="viewTestimonial(testimonial)">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </a>
-                            <a (click)="editTestimonial(testimonial)">
+                            <a [hidden]="editAccess()"  (click)="editTestimonial(testimonial)">
                                 <ion-icon name="create-outline"></ion-icon>
                             </a>
-                            <a (click)="deleteTestimonial(testimonial)">
+                            <a [hidden]="deleteAccess()" (click)="deleteTestimonial(testimonial)">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </a>
                         </div>
