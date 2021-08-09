@@ -13,8 +13,8 @@ const path = require('path');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'ictkerala707@gmail.com',
-        pass: 'ICTKeral@2021'
+            user: 'ictakKerala20k',
+            pass: 'ICTKerala@2021'
     }
 });
 

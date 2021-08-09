@@ -10,7 +10,7 @@ export class CourseService {
 
 
   getCourses(){
-    return this.http.get('http://localhost:5000/CourseList')
+    return this.http.get('http://localhost:5000/course/CourseList')
   };
 
   getCourse(id:any){
@@ -23,7 +23,7 @@ export class CourseService {
 
   courseRegistration(courseReg:any)
   {
-    return this.http.post<any>('http://localhost:5000/registercourse', courseReg)
+    return this.http.post<any>('http://localhost:5000/registration/registercourseList', courseReg)
   }
 
 }

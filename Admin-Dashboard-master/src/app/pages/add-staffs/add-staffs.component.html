@@ -82,7 +82,7 @@
                     <div class="col-lg-6"></div>
                     <div class="col-lg-6">
                       <button type="button" class="btn btn-danger btn-sm" (click)='closeForm()'>Close</button>&nbsp;
-                      <button type="submit" class="btn btn-primary btn-sm" (mousedown)="submitted=true">Add Staff</button>
+                      <button type="submit" class="btn btn-primary btn-sm " *ngIf='ifActive' (mousedown)="submitted=true">Add Staff</button>
                     </div>
                   </div>
             </form>

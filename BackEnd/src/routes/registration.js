@@ -2,11 +2,18 @@ const express = require('express');
 let app = express.Router();
 const multer = require('multer');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 
 const CourseRegistrationdata = require('../modal/CourseRegistrationData');
 
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+            user: 'ictakKerala20k',
+            pass: 'ICTKerala@2021'
+    }
+});
 
 
 
@@ -39,6 +46,27 @@ app.post('/registercourse', function (req, res) {
             else {
                 var vUser = CourseRegistrationdata(RegistrationItem);
                 vUser.save();
+                const to = RegistrationItem.emailaddress;
+                const subject = `${RegistrationItem.course_title} broucher link to download` ;
+                const text = 'text';
+                const message = `<p>Dear ${RegistrationItem.firstname},</p><p>Thank you for expressing your intrest in our course!!!!!!</p>
+                <p>Please click <a  href='https://firebasestorage.googleapis.com/v0/b/angular-firebase-b9d8c.appspot.com/o/FSD-MEAN-brochureKKEM_compressed.pdf?alt=media&token=3f9c78a5-b249-4585-986b-692f17279da9' target="_blank">here</a> to download the brochure.</p>
+                <p>Regards,</p>
+                <p>ICTAK Team.</p>`;
+                const mailData = { 
+                    from: 'ictkerala707@gmail.com',
+                    to: to,
+                    subject: subject,
+                    text: text,
+                    html: message,
+                };
+            
+                transporter.sendMail(mailData, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    }
+                });
+                console.log("mail is send");
                 console.log(`The registered user added is : Email ID - ${RegistrationItem.emailaddress}, Course - ${RegistrationItem.course_title}`);
                 res.status(200).send({ RegistrationItem })
             }
